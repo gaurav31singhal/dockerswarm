@@ -111,8 +111,8 @@ Following three network concepts are important to swarm services:
  ```
  ### Deploy Service on M1 
  ``` 
- $ docker service create --replicas 1 --name firstservice alpine ping docker.com
- $ docker service ls
+ $ sudo docker service create --replicas 1 --name pingservice alpine ping docker.com
+ $ sudo docker service ls
  ```
  
  ### Inspect a service
@@ -121,15 +121,29 @@ Following three network concepts are important to swarm services:
  ```
  *without pretty you will get a JSON format output 
  ```
- $ docker service ps firstservice
+ $ sudo docker service ps pingservice
  ```
  *Verify which nodes are running the service
  
  - Manager nodes can also run services if required
  - DESIRED STATE and LAST STATE of the service task to verify tasks are running according to the service definition
- - Goto to worker node wherein your service is running , Execute $ docker ps , to see running container
+ - Goto to Worker/Manager node wherein your service is running , Execute $ docker ps , to see running container
  
+ ### Scale your service 
+ ### Machine <M1> use
  
+ ```
+ $ sudo docker service scale pingservice=5
+ $ sudo docker service ps 
+ ```
+ - Goto to Worker/Manager node wherein your service is running , Execute $ docker ps , to see running containers
+ 
+ ### Deleting Service 
+ ```
+ $ sudo docker service rm pingservice
+ $ sudo docker service ps 
+ ```
+ *Containers may take some time in cleaning up 
  
  
  
