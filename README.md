@@ -36,6 +36,13 @@ A node is an instance of the Docker engine participating in the swarm.
 - Manager nodes assign tasks to worker nodes according to the number of replicas set in the service scale. 
 - Once a task is assigned to a node, it cannot move to another node. It can only run on the assigned node or fail.
 
+### Load balancing
+- The swarm manager uses ingress load balancing to expose the services you want to make available externally to the swarm. 
+- The swarm manager can automatically assign the service a PublishedPort or you can configure a PublishedPort for the service. - If you do not specify a port, the swarm manager assigns the service a port in the 30000-32767 range
+- External components, such as cloud load balancers, can access the service on the PublishedPort of any node in the cluster 
+- All nodes in the swarm route ingress connections to a running task instance
+- Swarm mode has an internal DNS component that automatically assigns each service in the swarm a DNS entry. 
+- The swarm manager uses internal load balancing to distribute requests among services within the cluster via DNS
 
 # Features of Docker swarm
  - Cluster management integrated with Docker Engine
