@@ -218,4 +218,32 @@ docker service create \
   nginx
 ```
 
+### On fly 
+```
+$ docker service update \
+  --publish-add target=<PUBLISHED-PORT>,port=<CONTAINER-PORT> \
+  <SERVICE>
+```
+### Inspect service 
+```
+$ docker service inspect --format="{{json .Endpoint.Spec.Ports}}" my-web
+```
+
+### Publish a port for TCP only or UDP only
+```
+$ sudo docker service create --name dns-cache -p 53:53 dns-cache
+  
+```
+### UDP
+```
+$ sudo docker service create --name dns-cache -p 53:53/udp dns-cache
+```
+
+### TCP/UDP Both 
+
+```
+$ sudo docker service create --name dns-cache -p 53:53 -p 53:53/udp dns-cache
+```
+  
+
  
