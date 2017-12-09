@@ -122,6 +122,10 @@ Following three network concepts are important to swarm services:
  ```
  $ docker swarm join-token worker
  ```
+ *Invalidate OLD and re-generate new 
+ ```
+ $ sudo docker swarm join-token  --rotate worker
+ ```
  #### Worker2 
  Same as above
  
@@ -339,3 +343,21 @@ Run docker service ps <service-name> to get the state of a task. The CURRENT STA
 ```
 $ sudo docker service ps
 ```
+
+### Manage Nodes in Swarm
+#### List nodes
+```
+$ sudo docker node ls
+```
+
+##### The AVAILABILITY column shows whether or not the scheduler can assign tasks to the node
+- Active means that the scheduler can assign tasks to the node.
+- Pause means the scheduler doesn’t assign new tasks to the node, but existing tasks remain running.
+- Drain means the scheduler doesn’t assign new tasks to the node. The scheduler shuts down any existing tasks and schedules them on an available node.
+
+##### The MANAGER STATUS column shows node participation in the Raft consensus:
+
+- No value indicates a worker node that does not participate in swarm management.
+- Leader means the node is the primary manager node that makes all swarm management and orchestration decisions for the swarm.
+- Reachable means the node is a manager node participating in the Raft consensus quorum. If the leader node becomes - unavailable, the node is eligible for election as the new leader.
+- Unavailable means the node is a manager that is not able to communicate with other managers. If a manager node becomes unavailable, you should either join a new manager node to the swarm or promote a worker node to be a manager.
