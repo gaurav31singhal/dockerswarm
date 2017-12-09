@@ -361,3 +361,22 @@ $ sudo docker node ls
 - Leader means the node is the primary manager node that makes all swarm management and orchestration decisions for the swarm.
 - Reachable means the node is a manager node participating in the Raft consensus quorum. If the leader node becomes - unavailable, the node is eligible for election as the new leader.
 - Unavailable means the node is a manager that is not able to communicate with other managers. If a manager node becomes unavailable, you should either join a new manager node to the swarm or promote a worker node to be a manager.
+
+### Inspect an individual node
+
+```
+$ docker node inspect self --pretty
+```
+### Aplly labels
+
+```
+$ docker node update --label-add foo --label-add bar=baz node-1 node-1
+```
+
+### Promote & Demote mode
+```
+$ sudo docker promote w2
+$ sudo docker demote w2
+$ docker node update --role manager w2
+$ docker node update --role worker w2 
+```
