@@ -48,6 +48,7 @@ A node is an instance of the Docker engine participating in the swarm.
 
 *global services, the swarm runs one task for the service on every available node in the cluster. AV/Monitoring Agents 
 
+
 ### Tasks
 - A task carries a Docker container and the commands to run inside the container. 
 - It is the atomic scheduling unit of swarm. 
@@ -296,8 +297,18 @@ $ sudo docker service create --name dns-cache \
 $ sudo docker node promote <node name>
 ```
 
+### Pending services
 
+- State of service 
+- All nodes paused or drained 
+- Resources not available 
+- Constraints of placement 
 
-- 
+### Replicated and global services
+#### There are two types of service deployments, replicated and global.
+
+- For a replicated service, you specify the number of identical tasks you want to run. For example, you decide to deploy an   HTTP service with three replicas, each serving the same content.
+
+- A global service is a service that runs one task on every node. There is no pre-specified number of tasks. Each time you add a node to the swarm, the orchestrator creates a task and the scheduler assigns the task to the new node. Good candidates for global services are monitoring agents, an anti-virus scanners or other types of containers that you want to run on every node in the swarm.
 
  
