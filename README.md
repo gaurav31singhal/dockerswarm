@@ -367,7 +367,7 @@ $ sudo docker node ls
 ```
 $ docker node inspect self --pretty
 ```
-### Aplly labels
+### Apply labels
 
 ```
 $ docker node update --label-add foo --label-add bar=baz node-1 node-1
