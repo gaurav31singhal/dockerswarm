@@ -1,5 +1,23 @@
 # dockerswarm
 Docker swarm a native orchestra-tor and container management solution
+
+# Features of Docker swarm
+ - Cluster management integrated with Docker Engine
+ - kinds of nodes, managers and workers
+ - Deploy applications as services and a Declarative service model
+ - Elasticity scaling
+ - Desired state reconciliation: self healing autu recovery
+ - Multi-host networking: Overlay networking 
+ - Service discovery/embedded DNS: Swarm manager nodes assign each service in the swarm a unique DNS name and load balances
+ - Can introduce external load balancer
+ - TLS node to node communication 
+ - Rolling updates
+
+
+
+
+
+
 ## Swarm Networking
 A Docker swarm generates two different kinds of traffic:
 
