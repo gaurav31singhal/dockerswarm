@@ -92,6 +92,7 @@ Following three network concepts are important to swarm services:
  ```
  
  ### Add Node 
+ #### Worker1
  ```
  $ sudo docker-machine ssh <W1>
  $ docker swarm join --token  SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
@@ -101,5 +102,16 @@ Following three network concepts are important to swarm services:
  ```
  $ docker swarm join-token worker
  ```
+ #### Worker2 
+ Same as above
  
+ ### M1
+ ```
+ $ sudo docker node ls
+ ```
+ ### Deploy Service on M1 
+ ``` 
+ $ docker service create --replicas 1 --name helloworld alpine ping docker.com
+ $ docker service ls
+ ```
  
