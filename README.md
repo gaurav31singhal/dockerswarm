@@ -391,3 +391,57 @@ $ sudo docker swarm leave
 ```
 $ sudo docker node rm w1
 ```
+### Services 
+##### Preference
+```
+docker service create \
+  --replicas 9 \
+  --name redis_2 \
+  --placement-pref 'spread=node.labels.datacenter' \
+  redis:3.0.6
+```
+
+#### Constraints 
+```
+docker service create \
+  --name my-nginx \
+  --global \
+  --constraint region==east \
+  --constraint type!=devel \
+  nginx
+```
+
+#### update behaviour 
+```
+$ docker service create \
+  --replicas 10 \
+  --name my_web \
+  --update-delay 10s \
+  --update-parallelism 2 \
+  --update-failure-action continue \
+  alpine
+
+```
+
+#### Roll back previous version
+```
+docker service update \
+  --rollback \
+  --update-delay 0s
+  my_web
+```
+#### Volumes and bind access
+
+```
+docker service create \
+  --mount src=<VOLUME-NAME>,dst=<CONTAINER-PATH> \
+  --name myservice \
+  <IMAGE>
+```
+
+```
+$ docker service create \
+  --mount type=bind,src=<HOST-PATH>,dst=<CONTAINER-PATH> \
+  --name myservice \
+  <IMAGE>
+```
