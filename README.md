@@ -145,5 +145,27 @@ Following three network concepts are important to swarm services:
  ```
  *Containers may take some time in cleaning up 
  
+## Rolling updates 
+Now we deploy a service based on the Redis 3.0.6 container image. Then upgrade the service to use the Redis 3.0.7 container image using rolling updates
+
+```
+$ sudo docker service create --replicas 3 --name redis --update-delay 10s redis:3.0.6
+$ sudo docker service inspect --pretty redis
+$ sudo docker service update --image redis:3.0.7 redis redis
+$ sudo docker service inspect --pretty redis
+
  
+```
+- update-delay flag configures the time delay between updates to a service tasks
+- You can describe the time T as a combination of the number of seconds Ts, minutes Tm, or hours Th
+
+The scheduler applies rolling updates as follows by default:
+
+- Stop the first task.
+- Schedule update for the stopped task.
+- Start the container for the updated task.
+- If the update to a task returns RUNNING, wait for the specified delay period then start the next task.
+- If, at any time during the update, a task returns FAILED, pause the update.
+
+
  
