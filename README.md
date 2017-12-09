@@ -171,9 +171,36 @@ The scheduler applies rolling updates as follows by default:
 ```
 $ sudo docker service inspect --pretty redis
 $ sudo docker service update redis
+$ sudo docker service ps
 ```
 *incase inspect output shows failed/paused state
 
 
-docker service update redis
+## Nodes Maintenance 
+- Drain a node on the swarm for putting it inside a maintenance time window 
+- DRAIN availability prevents a node from receiving new tasks from the swarm manager.
+- Manager stops tasks running on the node and launches replica tasks on a node with ACTIVE availability
+
+#### On M1
+```
+$ sudo docker node ls
+$ sudo docker service create --replicas 3 --name redis --update-delay 10s redis:3.0.6
+$ sudo docker service ps redis
+$ sudo docker node update --availability drain worker1
+$ sudo docker node inspect --pretty worker1
+```
+*output shows Availability:		Drain
+```
+$ sudo docker service ps redis
+```
+#### Reactivatation Post Maintenance window 
+
+```
+$ sudo docker node update --availability active worker1
+$ sudo docker node inspect --pretty worker1
+$ sudo docker service ps
+```
+
+
+
  
