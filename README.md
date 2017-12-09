@@ -14,6 +14,13 @@ A node is an instance of the Docker engine participating in the swarm.
 - Manager nodes also perform the orchestration and cluster management functions
 - Maintain desired state of the swarm cluster 
 - Manager nodes elect a single leader to conduct orchestration tasks
+#### Components
+
+- API server : Accepst command from CLI and create rest objects 
+- Orchestrator 
+- Allocator : Allocate IP address to tasks 
+- Dispatcher : Assign tasks to nodes
+- Scheduler : Instruct worker to run a task 
 
 
 
@@ -21,14 +28,25 @@ A node is an instance of the Docker engine participating in the swarm.
 - Executes tasks allocated by manager 
 - Worker node notifies manager of the current state of tasks helps maintaining desired state of each worker
 
+#### Components 
+- Worker : Connect to dispatcher for assigned tasks
+- Executor : Execute assigned tasks 
+- Here your containers runs 
+
 ### Services
 - A service is the definition of the tasks to execute on the manager or worker nodes. 
 - It is the central structure of the swarm system and the primary root of user interaction with the swarm
-- Service specify which container image to use and which commands to execute inside running containers.
+- Service specify which container image to use and which commands to execute inside running containers
+- Its a complete defination of your application running inside a container 
+- Determines the port where the swarm will make the service available outside the swarm
+- an overlay network for the service to connect to other services in the swarm
+- CPU and memory limits and reservations
+- A rolling update policy
+- Replicas of the image to run in the swarm
 
 *Replicated services model, the swarm manager distributes a specific number of replica tasks among the nodes based upon the scale you set in the desired state.
 
-*global services, the swarm runs one task for the service on every available node in the cluster.
+*global services, the swarm runs one task for the service on every available node in the cluster. AV/Monitoring Agents 
 
 ### Tasks
 - A task carries a Docker container and the commands to run inside the container. 
