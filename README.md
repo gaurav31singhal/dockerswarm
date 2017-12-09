@@ -167,5 +167,13 @@ The scheduler applies rolling updates as follows by default:
 - If the update to a task returns RUNNING, wait for the specified delay period then start the next task.
 - If, at any time during the update, a task returns FAILED, pause the update.
 
+### Rolling update failed/Paused state
+```
+$ sudo docker service inspect --pretty redis
+$ sudo docker service update redis
+```
+*incase inspect output shows failed/paused state
 
+
+docker service update redis
  
