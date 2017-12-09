@@ -380,3 +380,14 @@ $ sudo docker demote w2
 $ docker node update --role manager w2
 $ docker node update --role worker w2 
 ```
+
+### Leave & Remove
+
+#### On Worker 
+```
+$ sudo docker swarm leave
+```
+#### On Manager
+```
+$ sudo docker node rm w1
+```
