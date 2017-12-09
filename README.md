@@ -1,4 +1,4 @@
-# dockerswarm
+# Dockerswarm
  - Docker swarm a native orchestra-tor and container management solution
  - A swarm consists of multiple Docker hosts runs in swarm mode 
  - Managers to manage membership and delegation 
