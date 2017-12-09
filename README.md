@@ -254,6 +254,32 @@ $ sudo docker service create --name dns-cache \
   --publish target=53,port=53,protocol=udp,mode=host \
   --mode global dns-cache
 ```
+## NODES WORKING
+### M- Nodes
+- Maintaining cluster state (Raft) 
+- Scheduling services
+- Assiging tasks 
 
+### Fault tolerance
+- A three-manager swarm tolerates a maximum loss of one manager.
+- A five-manager swarm tolerates a maximum simultaneous loss of two manager nodes.
+- An N manager cluster will tolerate the loss of at most (N-1)/2 managers.
+- Docker recommends a maximum of seven manager nodes for a swarm.
+
+### W - nodes are also 
+
+- sole purpose is to execute containers
+- Worker nodes don’t participate in the Raft distributed state, make scheduling decisions
+
+### Change Roles 
+- Drain : By default tasks cn be schdule on Manager , To restrict it make it as a drain node.
+- Promote : Promoting worker as Manager , In case of Manager maintenance.
+```
+$ sudo docker node promote <node name>
+```
+
+
+
+- 
 
  
