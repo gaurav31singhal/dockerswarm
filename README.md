@@ -78,3 +78,28 @@ Following three network concepts are important to swarm services:
 - docker_gwbridge is a bridge network that connects the overlay networks (including the ingress network) to an individual Docker daemon’s   physical network. By default, each container a service is running is connected to its local Docker daemon host’s docker_gwbridge           network.
 
       - The docker_gwbridge network is created automatically when you initialize or join a swarm.
+      
+      
+      
+ ## Build Swarm cluster 1 Managers 2 Workers 
+ 
+ ### Manager
+ ```
+ $ sudo docker-machine ssh <M1>
+ $ docker swarm init --advertise-addr <M1-IP>
+ $ docker info
+ $ docker node ls 
+ ```
+ 
+ ### Add Node 
+ ```
+ $ sudo docker-machine ssh <W1>
+ $ docker swarm join --token  SWMTKN-1-49nj1cmql0jkz5s954yi3oex3nedyz0fb0xx14ie39trti4wxv-8vxv8rssmk743ojnwacrr2e7c \
+  192.168.99.100:2377
+ ```
+ *some how missed the token you can regenerate from M1 
+ ```
+ $ docker swarm join-token worker
+ ```
+ 
+ 
