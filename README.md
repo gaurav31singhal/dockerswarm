@@ -319,7 +319,7 @@ $ sudo docker node promote <node name>
 - Each service can start multiple tasks.
 - Each task has a life cycle, with states like NEW, PENDING, and COMPLETE.
 
-# States
+####  States
 
 - NEW	The task was initialized.
 - PENDING	Resources for the task were allocated.
@@ -333,4 +333,9 @@ $ sudo docker node promote <node name>
 - SHUTDOWN	Docker requested the task to shut down.
 - REJECTED	The worker node rejected the task.
 - ORPHANED	The node was down for too long.
- 
+
+#### View state
+Run docker service ps <service-name> to get the state of a task. The CURRENT STATE field shows the task’s state and how long it’s been there.
+```
+$ sudo docker service ps
+```
