@@ -244,6 +244,16 @@ $ sudo docker service create --name dns-cache -p 53:53/udp dns-cache
 ```
 $ sudo docker service create --name dns-cache -p 53:53 -p 53:53/udp dns-cache
 ```
-  
+### BYPASS DEFAULT SWARM ROUTING MESH
+- Host Mode when you access the bound port on a given node, always accessing the instance of the service running on that node
+- 5 nodes but run 10 replicas container you cannot specify a static target port. Either allow Docker to assign a random high-numbered port (by leaving off the target), or ensure that only a single instance of the service runs on a given node, by using a global service rather than a replicated one, or by using placement constraints.
+- To bypass the routing mesh, you must use the long --publish service and set mode to host. If you omit the mode key or set it to ingress, the routing mesh is used.
+
+```
+$ sudo docker service create --name dns-cache \
+  --publish target=53,port=53,protocol=udp,mode=host \
+  --mode global dns-cache
+```
+
 
  
