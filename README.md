@@ -111,7 +111,25 @@ Following three network concepts are important to swarm services:
  ```
  ### Deploy Service on M1 
  ``` 
- $ docker service create --replicas 1 --name helloworld alpine ping docker.com
+ $ docker service create --replicas 1 --name firstservice alpine ping docker.com
  $ docker service ls
  ```
+ 
+ ### Inspect a service
+ ```
+ $ docker service inspect --pretty firstservice
+ ```
+ *without pretty you will get a JSON format output 
+ ```
+ $ docker service ps firstservice
+ ```
+ *Verify which nodes are running the service
+ 
+ - Manager nodes can also run services if required
+ - DESIRED STATE and LAST STATE of the service task to verify tasks are running according to the service definition
+ - Goto to worker node wherein your service is running , Execute $ docker ps , to see running container
+ 
+ 
+ 
+ 
  
