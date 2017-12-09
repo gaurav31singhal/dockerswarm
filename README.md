@@ -201,6 +201,21 @@ $ sudo docker node inspect --pretty worker1
 $ sudo docker service ps
 ```
 
-
+### Routing 
+- The routing mesh enables each node in the swarm to accept connections on published ports for any service running in the        swarm, even if there’s no task running on the node. 
+- The routing mesh routes all incoming requests to published ports on available nodes to an active container
+- In order to use the ingress network in the swarm, you need to have the following ports open between the swarm nodes before    you enable swarm mode:
+ 
+   - Port 7946 TCP/UDP for container network discovery
+   - Port 4789 UDP for the container ingress network
+   
+### Publish a port for a service for external access 
+```
+docker service create \
+  --name my-web \
+  --publish target=8080,port=80 \
+  --replicas 2 \
+  nginx
+```
 
  
