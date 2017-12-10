@@ -146,7 +146,7 @@ To add a manager to this swarm, run 'docker swarm join-token manager' and follow
  
  ### Inspect a service
  ```
- $ docker service inspect --pretty firstservice
+ $ docker service inspect --pretty pingservice
  ```
  *without pretty you will get a JSON format output 
  ```
