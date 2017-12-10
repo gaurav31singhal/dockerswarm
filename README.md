@@ -499,7 +499,7 @@ $ $ docker service create
 ```
  
  
-# LOCK Swarm 
+## LOCK Swarm 
 In Docker 1.13 and higher, the Raft logs used by swarm managers are encrypted on disk by default. This at-rest encryption protects your service’s configuration and data from attackers who gain access to the encrypted Raft logs. One of the reasons this feature was introduced was in support of the new Docker secrets feature.
 
 When Docker restarts, both the TLS key used to encrypt communication among swarm nodes, and the key used to encrypt and decrypt Raft logs on disk, are loaded into each manager node’s memory. Docker 1.13 introduces the ability to protect the mutual TLS encryption key and the key used to encrypt and decrypt Raft logs at rest, by allowing you to take ownership of these keys and to require manual unlocking of your managers. This feature is called autolock.
@@ -521,4 +521,60 @@ $ sudo docker swarm unlock-key
 $ sudo docker swarm unlock-key --rotate
 ```
 
+### Monitor Swarm cluster 
 
+$ sudo docker node inspect manager1 --format "{{ .ManagerStatus.Reachability }}"
+
+reachable
+
+To query the status of the node as a worker that accept tasks:
+
+
+$ docker node inspect manager1 --format "{{ .Status.State }}"
+
+ready
+
+#### force removal node
+$ docker node rm --force node9
+
+### Back up the swarm
+
+You can back up the swarm using any manager. Use the following procedure.
+
+- If the swarm has auto-lock enabled, you will need the unlock key in order to restore the swarm from backup. Retrieve the unlock key if necessary and store it in a safe location. If you are unsure, read Lock your swarm to protect its encryption key.
+
+- Stop Docker on the manager before backing up the data, so that no data is being changed during the backup. It is possible to take a backup while the manager is running (a “hot” backup), but this is not recommended and your results will be less predictable when restoring. While the manager is down, other nodes will continue generating swarm data that will not be part of this backup.
+
+- Back up the entire /var/lib/docker/swarm directory.
+
+
+- Restart the manager.
+
+## Restore 
+
+
+- Recover from disaster
+- Restore from a backup
+After backing up the swarm as described in Back up the swarm, use the following procedure to restore the data to a new swarm.
+
+Shut down Docker on the target host machine where the swarm will be restored.
+
+Remove the contents of the /var/lib/docker/swarm directory on the new swarm.
+
+Restore the /var/lib/docker/swarm directory with the contents of the backup.
+
+Note: The new node will use the same encryption key for on-disk storage as the old one. It is not possible to change the on-disk storage encryption keys at this time.
+
+In the case of a swarm with auto-lock enabled, the unlock key is also the same as on the old swarm, and the unlock key will be needed to restore.
+Start Docker on the new node. Unlock the swarm if necessary. Re-initialize the swarm using the following command, so that this node does not attempt to connect to nodes that were part of the old swarm, and presumably no longer exist.
+
+$ docker swarm init --force-new-cluster
+
+Verify that the state of the swarm is as expected. This may include application-specific tests or simply checking the output of docker service ls to be sure that all expected services are present.
+
+If you use auto-lock, rotate the unlock key.
+
+Add manager and worker nodes to bring your new swarm up to operating capacity.
+
+####  From the node to recover
+docker swarm init --force-new-cluster --advertise-addr node01:2377
