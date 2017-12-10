@@ -496,6 +496,7 @@ $ $ docker service create
     --secret src=homepace,target="/var/www/html/index.html"
     webserver:v1  
  $ docker secret rm homepage
+```
  
  
 # LOCK Swarm 
@@ -508,13 +509,16 @@ When Docker restarts, you must unlock the swarm first, using a key encryption ke
 ```
 $ sudo docker swarm update --autolock=true
 $ sudo service docker restart
-
 $ sudo docker service ls
 ```
 ##### Unlock 
 ```
 $ sudo docker swarm unlock
 ```
-
+#### View and autorotate 
+```
+$ sudo docker swarm unlock-key
+$ sudo docker swarm unlock-key --rotate
+```
 
 
