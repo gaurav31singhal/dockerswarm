@@ -110,6 +110,11 @@ Following three network concepts are important to swarm services:
  $ docker info
  $ docker node ls 
  ```
+ To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-0usvgwrlquvprt3vcs2c4uvrkhub7rfgxymrxy834ebrcnjmk9-6f7uj471ypbm365ygoksxzza1 192.168.99.100:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
  
  ### Add Node 
  #### Worker1
